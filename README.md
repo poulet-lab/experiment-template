@@ -4,7 +4,6 @@
 
 This template serves as a guide for maintaining a standardized folder structure within a project.
 
-
 ## Folder Structure
 
 The project is organized into two main folders: `data` and `src`. <br>
