@@ -4,6 +4,24 @@
 
 This template serves as a guide for maintaining a standardized folder structure within a project.
 
+```shell
+├── .gitignore
+├── LICENSE
+├── README.md
+├── data
+│   ├── README.md
+│   ├── figures
+│   ├── other
+│   ├── processed
+│   └── raw
+└── src
+    ├── README.md
+    ├── analysis
+    ├── data
+    ├── experiment
+    └── processing
+```
+
 ## Folder Structure
 The project is organized into two main folders: `data` and `src`. <br>
 Each folder contains a README file providing detailed explanations of their respective purposes.
