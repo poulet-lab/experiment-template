@@ -49,7 +49,9 @@ codegen/
 octave-workspace
 # Exclude data files
 /data/raw/*
-/data/preprocessed/*
+!/data/raw/README.md
+/data/processed/*
+!/data/processed/README.md
 *.csv
 *.tar
 *.svg
