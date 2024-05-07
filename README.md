@@ -4,6 +4,12 @@
 
 This template serves as a guide for maintaining a standardized folder structure within a project.
 
+
+## Folder Structure
+
+The project is organized into two main folders: `data` and `src`. <br>
+Each folder contains a README file providing detailed explanations of their respective purposes.
+
 ```shell
 ├── .gitignore
 ├── LICENSE
@@ -21,10 +27,6 @@ This template serves as a guide for maintaining a standardized folder structure 
     ├── experiment
     └── processing
 ```
-
-## Folder Structure
-The project is organized into two main folders: `data` and `src`. <br>
-Each folder contains a README file providing detailed explanations of their respective purposes.
 
 ## Gitignore
 
