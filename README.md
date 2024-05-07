@@ -18,5 +18,10 @@ If there's a need to sync PNG format figures with GitHub, remove the `*.png` exc
 However, exercise caution to ensure that only required files are synced and unnecessary ones are omitted.
 
 ## Usage
+
 Push `use as template` button to create a new repository based on this template.
 Clone the repository and start developing there :)
+
+## Suggest changes
+
+Either open an issue or create a pull request with the change describing the current limitations and the solution.
