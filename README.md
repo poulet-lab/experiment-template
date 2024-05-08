@@ -38,7 +38,7 @@ However, exercise caution to ensure that only required files are synced and unne
 
 ## Usage
 
-Push `use as template` button to create a new repository based on this template.
+Push `use as template` button at the top right of [this page](https://github.com/poulet-lab/project-template/tree/main) to create a new repository based on this template.
 Clone the repository and start developing there :)
 
 ## Suggest changes
