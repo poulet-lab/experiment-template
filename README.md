@@ -6,26 +6,33 @@ This template serves as a guide for maintaining a standardized folder structure 
 
 ## Folder Structure
 
-The project is organized into two main folders: `data` and `src`. <br>
+The project is organized into thee main folders: `data`, `src` and `external`. <br>
 Each folder contains a README file providing detailed explanations of their respective purposes.
 
 ```shell
-├── .gitignore
-├── LICENSE
-├── README.md
+├── logbook.csv
 ├── data
-│   ├── README.md
+│   ├── analyzed
 │   ├── figures
 │   ├── other
 │   ├── processed
+│   │   └── subject_1
+│   │       └── session_1
 │   └── raw
+│       └── subject_1
+│           └── session_1
+├── external
 └── src
-    ├── README.md
     ├── analysis
     ├── data
     ├── experiment
     └── processing
+
 ```
+
+## Logbook
+
+A logbook.csv file is present in the root path which should be used from all researchers in every session
 
 ## Gitignore
 
