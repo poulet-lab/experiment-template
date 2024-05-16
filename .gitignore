@@ -60,3 +60,4 @@ octave-workspace
 *.mp4
 *.log
 *.png
+!/logbook.csv
