@@ -15,7 +15,7 @@ If raw data is stored in a cloud storage or drive, consider using [symbolic link
 The structure of the subfolders should be as follows
 
 ```shell
-./{subject_name}/{session_id}/{files}.{extension}
+./{session_start_time}/{subject_name}/{method}/{files}.{extension}
 ```
 
 ### Processed
@@ -26,7 +26,7 @@ Ensure that processed data is synchronized with cloud storage for backup purpose
 The structure of the subfolders should be as follows
 
 ```shell
-./{subject_name}/{session_id}/{files}.{extension}
+./{session_start_time}/{subject_name}/{method}/{files}.{extension}
 ```
 
 ### Analyzed
