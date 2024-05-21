@@ -46,20 +46,19 @@ The logbook has 5 mandatory columns. More can be added depending on the needs.
 ### Column description
 
 1. **timestamp**:<br>
-   UTC Day and time of the log recordings in the following format "YYYY-mm-DD HH:MM:ss +-TTTT". e.g "2024-05-20 14:50:32 +0200"<br>
-   +-TTTT is the timezone difference from UTC time.
+   UTC Day and time of the start of the session in the following format "YYYY-mm-DD HH:MM:ss +-TTTT".<br>
+   +-TTTT is the timezone difference from UTC time.<br>
+   e.g "2024-05-20 14:50:32 +0200"
 2. **subject_id**:<br>
-   The subject id of the session. e.g "eg-3429"
-3. **session**:<br>
-   Every step in the lifespan of an experiment counts as a session, but many notes can be present in one session.<br>
-   For example, many notes related to the surgery of a mouse.<br>
-   For now use acceding integers. e.g. session 1-2-3-4-...
-4. **method**:<br>
-   The method describing the session. e.g. surgery, imaging, intrinsic etc.
-5. **notes**:<br>
+   The subject id of the session.<br>
+   e.g "eg-3429"
+3. **method**:<br>
+   The method used in the session.<br>
+   e.g. surgery, imaging, intrinsic etc.
+4. **notes**:<br>
    All notes regarding the session.<br>
    Best would be to use JSON formatting.<br>
-   For example, you can use the following as a starting template, but no strict rules are applied here
+   For example, you can use the following as a starting template, but no strict rules are applied here.
 
    ```json
    {
