@@ -48,10 +48,13 @@ codegen/
 *.slxc
 octave-workspace
 # Exclude data files
-/data/raw/*
+/data/*
+!/data/README.md
 !/data/raw/README.md
-/data/processed/*
 !/data/processed/README.md
+!/data/analyzed/README.md
+!/data/figures/README.md
+!/data/other/README.md
 *.csv
 *.tar
 *.svg
@@ -60,4 +63,4 @@ octave-workspace
 *.mp4
 *.log
 *.png
-!/logbook.csv
+logbook.csv
