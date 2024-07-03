@@ -34,10 +34,9 @@ The structure of the subfolders should be as follows
 Houses all analyzed data exported from any `src/analysis/*` script. <br>
 Ensure that analyzed data is synchronized with cloud storage for backup purposes.
 
-### Figures
+### External
 
-Intended for exported figures and graphs from the `src/analysis/*` scripts. <br>
-These files can be stored on GitHub or any cloud storage platform.
+Link external datasets.
 
 ### Other
 

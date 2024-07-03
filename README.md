@@ -4,16 +4,26 @@
 
 This template serves as a guide for maintaining a standardized folder structure within a project.
 
+## Usage
+
+Push `use as template` button at the top right of [this page](https://github.com/poulet-lab/project-template/tree/main) to create a new repository based on this template.
+
+Name your repository with something short (maximum 4 words) and descriptive referring to the hypothesis of your experiment
+
+Clone the repository and start developing there :)
+
 ## Folder Structure
 
 The project is organized into thee main folders:
 
 1. **data**:<br>
    This folder is for structuring the data in a way that enables relative imports and exports within the codebase.
-2. **src**:<br>
+4. **noteboos**:<br>
+   This folder is for all jupyter notebooks.
+3. **reports**:<br>
+   This folder is for any generated analysis as HTML, PDF, LaTeX, etc. and for storing exported figures.
+4. **src**:<br>
    This folder contains all code, scripts, or notebooks related to the project.
-3. **external**:<br>
-   Use this folder to link any external repositories or code for backtracing.<br>
 
 Each folder contains a README file providing detailed explanations of their respective purposes.
 
@@ -21,7 +31,7 @@ Each folder contains a README file providing detailed explanations of their resp
 ├── logbook.csv
 ├── data
 │   ├── analyzed
-│   ├── figures
+│   ├── external
 │   ├── other
 │   ├── processed
 │   │   └── subject_1
@@ -29,9 +39,13 @@ Each folder contains a README file providing detailed explanations of their resp
 │   └── raw
 │       └── subject_1
 │           └── session_1
+├── notebooks
+├── reports
+│   ├── figures
 ├── external
 └── src
     ├── analysis
+    ├── external
     ├── data
     ├── experiment
     └── processing
@@ -85,11 +99,17 @@ For instance, common data files are excluded by default.
 If there's a need to sync PNG format figures with GitHub, remove the `*.png` exclusion from .gitignore.
 However, exercise caution to ensure that only required files are synced and unnecessary ones are omitted.
 
-## Usage
+## Requirements
 
-Push `use as template` button at the top right of [this page](https://github.com/poulet-lab/project-template/tree/main) to create a new repository based on this template.
-Clone the repository and start developing there :)
+You can put all required packages into requirement.txt file and install them using pip, conda or similar.
+
+```bash
+pip install -r requirements.txt
+
+```
 
 ## Suggest changes
 
 Either open an issue or create a pull request with the change describing the current limitations and the solution.
+
+This template has been highly influenced from [coockiecutter data science](https://cookiecutter-data-science.drivendata.org/) template.

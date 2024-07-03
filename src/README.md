@@ -25,3 +25,7 @@ This folder can be excluded if there is no preprocessing step in the project.
 
 Contains code for the final analysis of processed data. <br>
 This is the main folder for conducting analysis tasks.
+
+### External
+
+   Use this folder to link any external repositories or code for backtracing.<br>
