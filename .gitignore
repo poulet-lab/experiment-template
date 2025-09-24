@@ -1,6 +1,7 @@
 # General
 .DS_Store
 .vscode
+.cursor
 # Python specific
 __pycache__
 .Python
