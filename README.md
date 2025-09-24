@@ -8,7 +8,14 @@ This template serves as a guide for maintaining a standardized folder structure 
 
 Push `use as template` button at the top right of [this page](https://github.com/poulet-lab/project-template/tree/main) to create a new repository based on this template.
 
-Name your repository with something short (maximum 4 words) and descriptive referring to the hypothesis of your experiment
+### Repository Name
+
+Name your repository  according to the following rules:
+
+1. Use maximum of 4 words
+2. First word should be the main project's keyword.
+3. The other three words should describe the experiment's hypothesis.
+4. Use underscore (_) to connect them.
 
 Clone the repository and start developing there :)
 
