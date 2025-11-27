@@ -13,7 +13,6 @@ Best Practices:
 
 Structure:
     - main(): Entry point that parses arguments and coordinates the workflow
-    - experiment(): Core experiment logic (can be split into multiple functions)
     - signal_handler(): Handles interruption signals gracefully
 
 Example Usage:
@@ -37,12 +36,11 @@ Example Workflow:
 
 import signal
 import sys
-import time
 from pathlib import Path
-from typing import Optional
 
 from rich.console import Console
 
+from .experiment import experiment
 from .globals import BASE_PATH
 from .setup import setup
 from .wrapup import wrapup
@@ -83,68 +81,22 @@ def copy_globals_to_experiment_folder(folder_path: Path) -> None:
         )
 
 
-def signal_handler(sig: int, frame, hardware: Optional[object]) -> None:
+def signal_handler(sig: int, frame) -> None:
     """Handle interruption signals gracefully.
+    
+    Stops any running hardware devices and software processes before exiting.
+    This ensures clean shutdown and prevents hardware from being left in an
+    unsafe state.
     
     Args:
         sig: Signal number.
         frame: Current stack frame.
-        hardware: Hardware object to clean up, if any.
     """
     console.print("\n[Signal] Ctrl+C detected. Forcing exit.")
-    if hardware is not None:
-        if hasattr(hardware, 'stop'):
-            hardware.stop()
-        if hasattr(hardware, 'close'):
-            hardware.close()
+    
+    console.print("Stop any running hardware devices and software processes here.")
+    
     sys.exit(0)
-
-
-def experiment(folder_path: Path, hardware: Optional[object]) -> None:
-    """Execute the main experiment workflow.
-    
-    This function contains the core experiment logic. It should be organised
-    into clear sections that can be easily understood and modified.
-    
-    Args:
-        folder_path: Path to the experiment data folder.
-        hardware: Initialised hardware objects from setup.
-    
-    Example:
-        ```python
-        def experiment(folder_path, hardware):
-            collect_participant_info(folder_path)
-            
-            run_training_phase(folder_path, hardware)
-            run_experimental_phase(folder_path, hardware)
-            
-            save_experiment_metadata(folder_path)
-        ```
-    """
-    start_time = time.time()
-    
-    console.print("Starting experiment")
-    console.print(f"Data folder: {folder_path}")
-    
-    try:
-        console.print("Collecting participant information...")
-        
-        console.print("Running training phase...")
-        
-        console.print("Running experimental phase...")
-        
-        end_time = time.time()
-        duration = end_time - start_time
-        
-        duration_file = folder_path / "experiment_duration.txt"
-        with open(duration_file, "w") as f:
-            f.write(f"{duration:.2f} seconds\n")
-        
-        console.print(f"Experiment completed in {duration:.2f} seconds")
-        
-    except Exception as e:
-        console.print(f"[Error] Experiment failed: {e}", style="red")
-        raise
 
 
 def main() -> None:
@@ -160,16 +112,15 @@ def main() -> None:
     
     copy_globals_to_experiment_folder(folder_path)
     
-    hardware = None
     try:
-        hardware = setup()
+        setup()
         
         signal.signal(
             signal.SIGINT,
-            lambda sig, frame: signal_handler(sig, frame, hardware)
+            lambda sig, frame: signal_handler(sig, frame)
         )
         
-        experiment(folder_path, hardware)
+        experiment(folder_path)
         
     except KeyboardInterrupt:
         console.print("\n[Interrupt] Experiment interrupted by user", style="yellow")
@@ -177,11 +128,7 @@ def main() -> None:
         console.print(f"\n[Error] Experiment failed: {e}", style="red")
         raise
     finally:
-        if hardware is not None:
-            if hasattr(hardware, 'stop'):
-                hardware.stop()
-            if hasattr(hardware, 'close'):
-                hardware.close()
+        console.print("Stop any running hardware devices and software processes here.")
         
         wrapup(folder_path)
 

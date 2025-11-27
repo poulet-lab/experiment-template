@@ -10,7 +10,10 @@ Best Practices:
     - Check disk space and system resources
     - Provide clear reminders and prompts for the experimenter
     - Return initialised hardware objects for use in the experiment
-    - Implement retry logic for hardware checks that may fail intermittently
+    - Implement retry logic using while loops - if a check fails or user says no,
+      provide the opportunity to address the issue and try again
+    - Use try/except blocks around hardware checks to handle errors gracefully
+      and allow retries when hardware connections fail
 
 Structure:
     - setup(): Main setup function that orchestrates all checks
@@ -18,35 +21,14 @@ Structure:
     - check_software_*(): Software and dependency checks
     - check_system_*(): System resource checks
 
-Example Usage:
-    ```python
-    from .setup import setup
-    
-    hardware = setup()
-    chiller = hardware['chiller']
-    camera = hardware['camera']
-    ```
-
-Example Hardware Check:
-    ```python
-    def check_chiller(port: str) -> Optional[Chiller]:
-        "Check chiller connection and functionality."
-        try:
-            chiller = Chiller(port)
-            chiller.start()
-            temp = chiller.get_temperature()
-            console.print(f"Chiller connected. Current temperature: {temp}°C")
-            return chiller
-        except Exception as e:
-            console.print(f"Chiller check failed: {e}")
-            return None
-    ```
+Below is an example of how to use the setup function to check the hardware.
 """
 
 from typing import Dict, Optional, Any
 
 from rich.console import Console
 from rich.panel import Panel
+from rich.prompt import Confirm
 
 from .globals import LOCAL_THRESHOLD_GB
 
@@ -75,6 +57,7 @@ def check_hardware_example() -> bool:
     
     This is a template for implementing hardware checks. Replace with
     actual hardware validation logic for your specific equipment.
+    Use try/except blocks to handle connection errors gracefully.
     
     Returns:
         True if hardware check passes, False otherwise.
@@ -88,8 +71,66 @@ def check_hardware_example() -> bool:
         )
     )
     
-    response = input("\nIs the hardware ready? (y/n): ")
-    return response.lower() == 'y'
+    try:
+        response = Confirm.ask("\nIs the hardware ready?", default=True)
+        return response
+    except Exception as e:
+        console.print(f"[Error] Hardware check failed: {e}", style="red")
+        return False
+
+
+def check_software_example() -> bool:
+    """Example software check function.
+    
+    This is a template for implementing software checks. Replace with
+    actual software validation logic for your specific software.
+    Use try/except blocks to handle errors gracefully.
+    
+    Returns:
+        True if software check passes, False otherwise.
+    """
+    console.rule("[bold cyan]Software Check Example[/]")
+    console.print(
+        Panel(
+            "This is an example software check.\n"
+            "Replace this function with actual software validation.",
+            border_style="yellow",
+        )
+    )
+    
+    try:
+        response = Confirm.ask("\nIs the software ready?", default=True)
+        return response
+    except Exception as e:
+        console.print(f"[Error] Software check failed: {e}", style="red")
+        return False
+
+
+def check_system_example() -> bool:
+    """Example system check function.
+    
+    This is a template for implementing system checks. Replace with
+    actual system validation logic for your specific system.
+    Use try/except blocks to handle errors gracefully.
+    
+    Returns:
+        True if system check passes, False otherwise.
+    """
+    console.rule("[bold cyan]System Check Example[/]")
+    console.print(
+        Panel(
+            "This is an example system check.\n"
+            "Replace this function with actual system validation.",
+            border_style="yellow",
+        )
+    )
+    
+    try:
+        response = Confirm.ask("\nIs the system ready?", default=True)
+        return response
+    except Exception as e:
+        console.print(f"[Error] System check failed: {e}", style="red")
+        return False
 
 
 def setup() -> Optional[Dict[str, Any]]:
@@ -100,6 +141,9 @@ def setup() -> Optional[Dict[str, Any]]:
     2. Hardware validation
     3. Disk space verification
     4. Initialising hardware objects
+    
+    All checks are wrapped in while loops with try/except blocks to allow
+    retries if checks fail or user indicates issues need to be addressed.
     
     Returns:
         Dictionary of initialised hardware objects, or None if setup fails.
@@ -126,15 +170,43 @@ def setup() -> Optional[Dict[str, Any]]:
             title="Pre-Experiment Checklist"
         )
     )
-    input("\nPress Enter when ready to continue...")
     
-    hardware_ready = check_hardware_example()
-    if not hardware_ready:
-        console.print(
-            "[Error] Hardware check failed. Please verify connections.",
-            style="red"
-        )
+    ready = Confirm.ask("\nAre you ready to continue?", default=True)
+    if not ready:
+        console.print("Setup cancelled by user.", style="yellow")
         return None
+    
+    while True:
+        try:
+            hardware_ready = check_hardware_example()
+            if hardware_ready:
+                break
+            else:
+                console.print(
+                    "[Warning] Hardware check did not pass.",
+                    style="yellow"
+                )
+                retry = Confirm.ask(
+                    "Would you like to run the hardware check again?",
+                    default=True
+                )
+                if not retry:
+                    console.print(
+                        "[Error] Hardware check failed. Please verify connections.",
+                        style="red"
+                    )
+                    return None
+        except Exception as e:
+            console.print(
+                f"[Error] Hardware check encountered an error: {e}",
+                style="red"
+            )
+            retry = Confirm.ask(
+                "Would you like to try the hardware check again?",
+                default=True
+            )
+            if not retry:
+                return None
     
     hardware = {}
     
